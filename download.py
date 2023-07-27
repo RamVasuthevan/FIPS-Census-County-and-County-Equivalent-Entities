@@ -42,7 +42,6 @@ for year in YEARS:
         file_url = URLS[year] + link
         file_response = requests.get(file_url)
 
-        # Replace the appropriate character with tabs
         file_content = file_response.text.strip().replace(DELIMITER[year], "\t")
         lines = file_content.split("\n")
 
