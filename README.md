@@ -1,4 +1,4 @@
-# FIPS Cenus County and County Equivalent Entities
+# FIPS Census County and County Equivalent Entities
 
 2010 and 2020 Census codes for Counties and County Equivalent Entities sorted by "STATEFP" then "COUNTYFP"
 
