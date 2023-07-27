@@ -45,7 +45,9 @@ for year in YEARS:
         file_content = file_response.text.strip().replace(DELIMITER[year], "\t")
         lines = file_content.split("\n")
 
-        with open(os.path.join(OUTPUT_DIRS[year], link.replace(".txt", ".tsv")), "w") as state_file:
+        with open(
+            os.path.join(OUTPUT_DIRS[year], link.replace(".txt", ".tsv")), "w"
+        ) as state_file:
             state_file.write(file_content + "\n")
 
         if write_headers:
