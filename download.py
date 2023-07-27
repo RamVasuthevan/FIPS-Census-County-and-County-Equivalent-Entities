@@ -12,12 +12,15 @@ URLS = {
 
 OUTPUT_DIRS = {2010: "fips_2010/", 2020: "fips_2020/"}
 
-OUTPUT_FILE_NAMES = {2010: "fips_2010.txt", 2020: "fips_2020.txt"}
+OUTPUT_FILE_NAMES = {2010: "fips_2010.tsv", 2020: "fips_2020.tsv"}
 
 FILE_PATTERNS = {2010: r"st.*cou\.txt$", 2020: r"st.*cou2020\.txt$"}
 
 # The 2020 files already include headers, so we set it to None.
-HEADERS = {2010: "STATE,STATEFP,COUNTYFP,COUNTYNAME,CLASSFP", 2020: None}
+HEADERS = {2010: "STATE\tSTATEFP\tCOUNTYFP\tCOUNTYNAME\tCLASSFP", 2020: None}
+
+# The delimiters used in the files for each year
+DELIMITER = {2010: ",", 2020: "|"}
 
 for year in YEARS:
     os.makedirs(OUTPUT_DIRS[year], exist_ok=True)
@@ -39,10 +42,11 @@ for year in YEARS:
         file_url = URLS[year] + link
         file_response = requests.get(file_url)
 
-        file_content = file_response.text.strip()
+        # Replace the appropriate character with tabs
+        file_content = file_response.text.strip().replace(DELIMITER[year], "\t")
         lines = file_content.split("\n")
 
-        with open(os.path.join(OUTPUT_DIRS[year], link), "w") as state_file:
+        with open(os.path.join(OUTPUT_DIRS[year], link.replace(".txt", ".tsv")), "w") as state_file:
             state_file.write(file_content + "\n")
 
         if write_headers:
