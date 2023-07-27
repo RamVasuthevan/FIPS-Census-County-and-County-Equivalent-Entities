@@ -17,7 +17,7 @@ OUTPUT_FILE_NAMES = {2010: "fips_2010.txt", 2020: "fips_2020.txt"}
 FILE_PATTERNS = {2010: r"st.*cou\.txt$", 2020: r"st.*cou2020\.txt$"}
 
 # The 2020 files already include headers, so we set it to None.
-HEADERS = {2010: "STATE|STATEFP|COUNTYFP|COUNTYNAME|CLASSFP", 2020: None}
+HEADERS = {2010: "STATE,STATEFP,COUNTYFP,COUNTYNAME,CLASSFP", 2020: None}
 
 for year in YEARS:
     os.makedirs(OUTPUT_DIRS[year], exist_ok=True)
