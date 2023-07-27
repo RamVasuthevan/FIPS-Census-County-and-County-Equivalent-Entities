@@ -42,12 +42,14 @@ for year in YEARS:
         file_url = URLS[year] + link
         file_response = requests.get(file_url)
 
+        # Replace the appropriate character with tabs
         file_content = file_response.text.strip().replace(DELIMITER[year], "\t")
         lines = file_content.split("\n")
 
-        with open(
-            os.path.join(OUTPUT_DIRS[year], link.replace(".txt", ".tsv")), "w"
-        ) as state_file:
+        with open(os.path.join(OUTPUT_DIRS[year], link.replace(".txt", ".tsv")), "w") as state_file:
+            # Add headers to the individual state files
+            if HEADERS[year]:
+                state_file.write(HEADERS[year] + "\n")
             state_file.write(file_content + "\n")
 
         if write_headers:
