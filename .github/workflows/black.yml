@@ -1,6 +1,7 @@
 name: Black Code Formatter
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
