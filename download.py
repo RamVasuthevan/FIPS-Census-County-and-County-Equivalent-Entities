@@ -22,46 +22,51 @@ HEADERS = {2010: "STATE\tSTATEFP\tCOUNTYFP\tCOUNTYNAME\tCLASSFP", 2020: None}
 # The delimiters used in the files for each year
 DELIMITER = {2010: ",", 2020: "|"}
 
-for year in YEARS:
-    os.makedirs(OUTPUT_DIRS[year], exist_ok=True)
+def download_data():
 
-    response = requests.get(URLS[year])
-    soup = BeautifulSoup(response.text, "html.parser")
+    for year in YEARS:
+        os.makedirs(OUTPUT_DIRS[year], exist_ok=True)
 
-    pattern = re.compile(FILE_PATTERNS[year])
-    links = [
-        link.get("href")
-        for link in soup.find_all("a")
-        if link.get("href") and pattern.match(link.get("href"))
-    ]
+        response = requests.get(URLS[year])
+        soup = BeautifulSoup(response.text, "html.parser")
 
-    all_lines = []
-    write_headers = True
+        pattern = re.compile(FILE_PATTERNS[year])
+        links = [
+            link.get("href")
+            for link in soup.find_all("a")
+            if link.get("href") and pattern.match(link.get("href"))
+        ]
 
-    for link in links:
-        file_url = URLS[year] + link
-        file_response = requests.get(file_url)
+        all_lines = []
+        write_headers = True
 
-        # Replace the appropriate character with tabs
-        file_content = file_response.text.strip().replace(DELIMITER[year], "\t")
-        lines = file_content.split("\n")
+        for link in links:
+            file_url = URLS[year] + link
+            file_response = requests.get(file_url)
 
-        with open(
-            os.path.join(OUTPUT_DIRS[year], link.replace(".txt", ".tsv")), "w"
-        ) as state_file:
-            # Add headers to the individual state files
-            if HEADERS[year]:
-                state_file.write(HEADERS[year] + "\n")
-            state_file.write(file_content + "\n")
+            # Replace the appropriate character with tabs
+            file_content = file_response.text.strip().replace(DELIMITER[year], "\t")
+            lines = file_content.split("\n")
 
-        if write_headers:
-            if HEADERS[year]:
-                all_lines.append(HEADERS[year])
-            else:
-                all_lines.append(lines[0])
-            write_headers = False
+            with open(
+                os.path.join(OUTPUT_DIRS[year], link.replace(".txt", ".tsv")), "w"
+            ) as state_file:
+                # Add headers to the individual state files
+                if HEADERS[year]:
+                    state_file.write(HEADERS[year] + "\n")
+                state_file.write(file_content + "\n")
 
-        all_lines.extend(lines[1:])
+            if write_headers:
+                if HEADERS[year]:
+                    all_lines.append(HEADERS[year])
+                else:
+                    all_lines.append(lines[0])
+                write_headers = False
 
-    with open(OUTPUT_FILE_NAMES[year], "w") as outfile:
-        outfile.write("\n".join(all_lines))
+            all_lines.extend(lines[1:])
+
+        with open(OUTPUT_FILE_NAMES[year], "w") as outfile:
+            outfile.write("\n".join(all_lines))
+
+if __name__ == "__main__":
+    download_data()
