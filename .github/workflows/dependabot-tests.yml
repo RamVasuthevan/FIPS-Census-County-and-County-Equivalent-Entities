@@ -1,13 +1,15 @@
 name: Dependabot Tests
 
 on:
-  create: # Trigger the workflow when a new branch is created
+  create: 
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]' # Run this job only if the actor is Dependabot
-
+    if: > 
+      github.actor == 'dependabot[bot]' || 
+      github.event_name == 'workflow_dispatch' 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
