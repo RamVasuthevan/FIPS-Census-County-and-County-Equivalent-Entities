@@ -22,8 +22,8 @@ HEADERS = {2010: "STATE\tSTATEFP\tCOUNTYFP\tCOUNTYNAME\tCLASSFP", 2020: None}
 # The delimiters used in the files for each year
 DELIMITER = {2010: ",", 2020: "|"}
 
-def download_data():
 
+def download_data():
     for year in YEARS:
         os.makedirs(OUTPUT_DIRS[year], exist_ok=True)
 
@@ -67,6 +67,7 @@ def download_data():
 
         with open(OUTPUT_FILE_NAMES[year], "w") as outfile:
             outfile.write("\n".join(all_lines))
+
 
 if __name__ == "__main__":
     download_data()
