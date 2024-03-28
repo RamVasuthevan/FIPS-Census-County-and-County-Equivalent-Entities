@@ -44,9 +44,6 @@ def download_data():
             file_url = URLS[year] + link
             file_response = requests.get(file_url)
 
-            if True:
-                print("Test")
-
             # Replace the appropriate character with tabs
             file_content = file_response.text.strip().replace(DELIMITER[year], "\t")
             lines = file_content.split("\n")
