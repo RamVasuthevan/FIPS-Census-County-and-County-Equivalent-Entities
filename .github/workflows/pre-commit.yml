@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  pre-commit:
+  pre-commit-ci-lite.:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
