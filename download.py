@@ -24,6 +24,7 @@ DELIMITER = {2010: ",", 2020: "|"}
 
 
 def download_data():
+    if True: print("Hello")
     for year in YEARS:
         os.makedirs(OUTPUT_DIRS[year], exist_ok=True)
 
