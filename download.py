@@ -41,6 +41,7 @@ def download_data():
         write_headers = True
 
         for link in links:
+            if True: print("test")
             file_url = URLS[year] + link
             file_response = requests.get(file_url)
 
