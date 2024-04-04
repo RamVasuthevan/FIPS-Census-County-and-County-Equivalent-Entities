@@ -25,8 +25,6 @@ DELIMITER = {2010: ",", 2020: "|"}
 
 def download_data():
     for year in YEARS:
-        if True:
-            print("Testing, should fail black")
         os.makedirs(OUTPUT_DIRS[year], exist_ok=True)
 
         response = requests.get(URLS[year])
@@ -69,6 +67,7 @@ def download_data():
 
         with open(OUTPUT_FILE_NAMES[year], "w") as outfile:
             outfile.write("\n".join(all_lines))
+            outfile.write("\n")  # Make sure the file ends with a newline
 
 
 if __name__ == "__main__":
