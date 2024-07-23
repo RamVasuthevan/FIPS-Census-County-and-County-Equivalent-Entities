@@ -1,0 +1,37 @@
+name: Update Pre-Commit Hooks
+
+on:
+  schedule:
+    - cron: "0 5 * * 6" #Saturday 12:00 AM EST
+  workflow_dispatch:
+
+jobs:
+  update-pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Auto-update pre-commit hooks
+        run: pre-commit autoupdate
+
+      - name: Get the current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: Update pre-commit hooks
+          title: "[AUTO] Update pre-commit hooks"
+          body: "Automated update of pre-commit hooks"
+          branch: pre-commit-autoupdate/${{ steps.date.outputs.date }}
+          delete-branch: true
