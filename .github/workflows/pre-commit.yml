@@ -13,3 +13,4 @@ jobs:
       - uses: actions/setup-python@v5
       - uses: pre-commit/action@v3.0.1
         continue-on-error: true
+      - uses: stefanzweifel/git-auto-commit-action@v5
