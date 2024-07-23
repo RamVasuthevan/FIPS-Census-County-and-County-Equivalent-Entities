@@ -18,5 +18,5 @@
       ]
     }
   },
-  "postCreateCommand": "pipenv sync --dev && pipenv run pre-commit install"
+  "postCreateCommand": "pipenv sync --dev"
 }
