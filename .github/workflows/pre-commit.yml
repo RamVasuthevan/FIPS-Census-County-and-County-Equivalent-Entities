@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
 
       - name: Cache pre-commit
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-3|${{ runner.os }}|${{ hashFiles('.pre-commit-config.yaml') }}
