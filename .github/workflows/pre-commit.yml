@@ -39,7 +39,9 @@ jobs:
         run: |
           pre-commit run --all-files --show-diff-on-failure --color=always
         continue-on-error: true
+
       - name: Commit changes
+        if: success() || failure()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
