@@ -39,7 +39,7 @@ jobs:
         run: |
           pre-commit run --all-files --show-diff-on-failure --color=always
         continue-on-error: true
-        
+
       - name: Commit changes
         if: success() || failure()
         env:
@@ -50,4 +50,3 @@ jobs:
           git add .
           git commit -m "Apply pre-commit fixes" || echo "No changes to commit"
           git push origin HEAD:${{ github.head_ref }}
-      
