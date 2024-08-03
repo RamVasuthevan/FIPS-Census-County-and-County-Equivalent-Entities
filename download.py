@@ -5,7 +5,10 @@ import re
 
 YEARS = [2010, 2020]
 
-URLS = {2010: "https://www2.census.gov/geo/docs/reference/codes/files/",2020: "https://www2.census.gov/geo/docs/reference/codes2020/cou/"}
+URLS = {
+    2010: "https://www2.census.gov/geo/docs/reference/codes/files/",
+    2020: "https://www2.census.gov/geo/docs/reference/codes2020/cou/",
+}
 
 OUTPUT_DIRS = {2010: "fips_2010/", 2020: "fips_2020/"}
 
