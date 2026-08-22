@@ -10,7 +10,7 @@ beautifulsoup4 = "*"
 [dev-packages]
 black = "26.5.1"
 pre-commit = "4.6.2"
-pre-commit-hooks = "5.0.0"
+pre-commit-hooks = "6.0.0"
 
 [requires]
 python_version = "3.14"
